@@ -20,7 +20,7 @@ C = pid(Kp,Ki,Kd);
 T = feedback(P_pend,C);
 
 %% Input response to the pendulum:
-t=0:0.01:10;
+t=0:0.01:10;ilaplace(F)
 impulse(T,t)
 title({'Response of Pendulum Position to an Impulse Disturbance';'under PID Control: Kp = 1, Ki = 1, Kd = 1'});
 
