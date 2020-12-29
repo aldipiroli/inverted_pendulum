@@ -39,7 +39,6 @@ title('Open-Loop Impulse Response')
 [zeros poles] = zpkdata(P_cart,'v')
 
 %% Open loop step response:
-
 t = 0:0.05:10;
 u = ones(size(t));
 [y,t] = lsim(sys_tf,u,t);
@@ -55,21 +54,31 @@ pend_info = step_info(2)
 
 %% Root locus plot:
 rlocus(P_pend)
-title('Root Locus of Plant (under Proportional Control)')
+title('Root Locus of Plant ')
 zeros = zero(P_pend)
 poles = pole(P_pend)
 
 
-%% Adding 2 zeros:
-C = (s+1)*(s+3)/(s-5)
+%% Controller:
+C = (s+1)*(s+2)/s;
 rlocus(C*P_pend)
-title('Root Locus with PID Controller')
 
 
-%% Impulse response:
-K = 90;
+
+%% Impulse response Close Loop Pendulum:
+K = 60;
 T = feedback(P_pend,K*C);
 impulse(T)
 title('Impulse Disturbance Response of Pendulum Angle under PID Control');
 
-T
+
+
+%% Impulse response Close Loop Cart:
+C = C*K
+P_cart = (((I+m*l^2)/q)*s^2 - (m*g*l/q))/(s^4 + (b*(I + m*l^2))*s^3/q - ((M + m)*m*g*l)*s^2/q - b*m*g*l*s/q);
+T2 = feedback(1,P_pend*C)*P_cart;
+T2 = minreal(T2);
+t = 0:0.01:10;
+impulse(T2, t), grid
+title({'Response of Cart Position to an Impulse Disturbance';'under Closed-loop Control'});
+
