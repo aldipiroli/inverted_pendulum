@@ -1,0 +1,21 @@
+%%
+close all; clear all; clc;
+
+%% 
+s = tf('s');
+m = 0.1;
+M = 1.0;
+l = 0.5;
+g = 9.8;
+
+P_pend = 1/(-4/3 *m*l*s^2 + g*(m+M))
+
+%% 
+pole(P_pend)
+rlocus(P_pend)
+
+
+
+
+%% Open loop step response:
+impulse(P_pend)

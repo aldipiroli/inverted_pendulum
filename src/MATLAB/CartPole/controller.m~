@@ -59,22 +59,25 @@ zeros = zero(P_pend)
 poles = pole(P_pend)
 
 
-%% Adding 2 zeros:
-C = (s+1)*(s+2)/s;
+%% Controller:
+% z = [];
+% p = [];
+% k = 1;
+% C = zpk(z,p,k);
+
+C = ((s+8)*(s+6))/((s+10)*(s+20)*(s+30))
 rlocus(C*P_pend)
 
 
-
-%% Impulse response:
-K = 60;
+%% Impulse response Close Loop Pendulum:
+K = 340;
 T = feedback(P_pend,K*C);
 impulse(T)
 title('Impulse Disturbance Response of Pendulum Angle under PID Control');
 
 
 
-%% Impulse response:
-
+%% Impulse response Close Loop Cart:
 C = C*K
 P_cart = (((I+m*l^2)/q)*s^2 - (m*g*l/q))/(s^4 + (b*(I + m*l^2))*s^3/q - ((M + m)*m*g*l)*s^2/q - b*m*g*l*s/q);
 T2 = feedback(1,P_pend*C)*P_cart;

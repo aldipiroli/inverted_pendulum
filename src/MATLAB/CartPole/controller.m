@@ -60,13 +60,23 @@ poles = pole(P_pend)
 
 
 %% Controller:
-C = (s+1)*(s+2)/s;
-rlocus(C*P_pend)
+% z = [];
+% p = [];
+% k = 1;
+% C = zpk(z,p,k);
+Kp = 100;
+Ki = 1;
+Kd = 30;
+C = pid(Kp,Ki,Kd);
+T = feedback(P_pend,C);
+step(T)
 
+% rlocus(C*P_pend)
+Plant = P_pend
 
 
 %% Impulse response Close Loop Pendulum:
-K = 60;
+% K = 5.64e4;
 T = feedback(P_pend,K*C);
 impulse(T)
 title('Impulse Disturbance Response of Pendulum Angle under PID Control');
