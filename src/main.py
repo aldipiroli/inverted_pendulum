@@ -1,5 +1,6 @@
 import gym
 import PIDController
+from cartpole import CartPoleEnv
 
 
 if __name__ == "__main__":
@@ -8,7 +9,7 @@ if __name__ == "__main__":
     pid.Reset()
     pid.PrintValues()
 
-    env = gym.make('CartPole-v0')
+    env = CartPoleEnv()
 
     observation = env.reset()
 

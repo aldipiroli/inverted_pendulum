@@ -8,14 +8,21 @@ M = 1.0;
 l = 0.5;
 g = 9.8;
 
-P_pend = 1/(-4/3 *m*l*s^2 + g*(m+M))
+P_pend = 1/(-(l/3)*(m+4*M)*s^2 + g*(m+M))
 
-%% 
-pole(P_pend)
-rlocus(P_pend)
+pzmap(sys)%% 
+step(P_pend)
+% pole(P_pend)
+% rlocus(P_pend)
 
+%% Controller:
+% Kp = 1;
+% Ki = 0;
+% Kd = 1;
+% C = pid(Kp,Ki,Kd);
 
-
+C = 1
+rlocus(C*P_pend)
 
 %% Open loop step response:
 impulse(P_pend)
