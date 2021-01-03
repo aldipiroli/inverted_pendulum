@@ -1,10 +1,11 @@
 import numpy as np
 
 class PID:
-    def __init__(self, Kp, Ki, Kd):
+    def __init__(self, Kp, Ki, Kd, k):
         self.p = Kp
         self.i = Ki
         self.d = Kd
+        self.k = k
 
         self.Kp = []
         self.Ki = []
@@ -33,7 +34,7 @@ class PID:
 
 
         r = self.p * e_n + self.i*e_sum + self.d * (e_n - e_n_1)
-
+        r = self.k * r
         u = 1 - r
 
         print(u, th)

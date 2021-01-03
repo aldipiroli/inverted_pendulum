@@ -1,15 +1,15 @@
 import gym
 import PIDController
-from cartpole import CartPoleEnv
+# from cartpole import CartPoleEnv
 
 
 if __name__ == "__main__":
     var = PIDController.Variables
-    pid = PIDController.PID(40, 4, 25)
+    pid = PIDController.PID(10, 1, 1, -30)
     pid.Reset()
     pid.PrintValues()
 
-    env = CartPoleEnv()
+    env = gym.make('CartPole-v0')
 
     observation = env.reset()
 
@@ -24,7 +24,7 @@ if __name__ == "__main__":
         action = -1
         if u > 1:
             action = 1
-        if u < -1:
+        if u <= -1 :
             action = 0
 
         if action != -1:
