@@ -44,12 +44,17 @@ Wo = (z-z1)*(w1_*z + w0_)/z^3
 
 %% Compute Controller:
 C = 1/Pz * Wo / (1-Wo)
-C_t = tf2sym(C)
-C_t = iztrans(C_t)
+% C_t = tf2sym(C)
+% C_t = iztrans(C_t)
+
+
 
 %% Close Loop Stability Analysis:
 T = feedback(C*Pz, 1)
 impulse(T)
+rlocus(T)
+pole(T)
+
 % step(T)
 
 
@@ -58,3 +63,7 @@ T2 = T*Pz_cart;
 t = 0:0.01:50;
 impulse(T2)
 title({'Response of Cart Position to an Impulse Disturbance';'under PID Control: Kp = 100, Ki = 1, Kd = 20'});
+
+
+%% 
+rlocus(T2)

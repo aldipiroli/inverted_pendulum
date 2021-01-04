@@ -41,3 +41,7 @@ pole(T2)
 t = 0:0.01:50;
 impulse(T2, t);
 title({'Response of Cart Position to an Impulse Disturbance';'under PID Control: Kp = 100, Ki = 1, Kd = 20'});
+
+
+%% 
+rlocus(T2)
