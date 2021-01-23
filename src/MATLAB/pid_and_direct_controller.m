@@ -50,44 +50,15 @@ zero(T2)
 pole(T2)
 
 
-%% 2nd Controller:
-
-Kp = 4;
-Ki = 0
-Kd = 0;
-C2 = pid(Kp,Ki,Kd);
-
-T3 = feedback(K2*C2*T2,1)
-rlocus(T3)
-
-%% 
-K2 = 0.0170
-T3 = feedback(K2*C2*T2,1)
-
-t = 0:0.01:50;
-impulse(T3, t);
-pole(T3)
+%% DT Inner Loop:
+z = tf('z');
+Tc = 0.02
+Pz = dscrzoh(P, Tc)
+Pz_cart = dscrzoh(P_cart, Tc)
 
 
-% Kp = 7.27e+06;
-% Ki = 2.51e+09;
-% Kd = 5.27e+03;
-% C2 = pid(Kp,Ki,Kd);
-% 
-% K2 = 1
-% T3 = feedback(K2*C2*T2,1)
-% impulse(T3)
-% pole(T3)
-% 
-% 
-% 
-% %% 
-% rlocus(C2*T2)
-% % [k,poles] = rlocfind(C2*T2)
-% % pole(T3)
-% K2 = 1.0172
-% 
-% T3 = feedback(K2*C2*T2,1)
-% 
-% pole(T3)
-% 
+zeros = zero(Pz)
+poles = pole(Pz)
+
+P_t = tf2sym(Pz)
+P_t = iztrans(P_t)
